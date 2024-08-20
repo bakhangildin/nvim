@@ -89,6 +89,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     set("n", "[d", vim.diagnostic.goto_next, { buffer = bufnr })
     set("n", "]d", vim.diagnostic.goto_prev, { buffer = bufnr })
+    set("n", "<leader>dq", function()
+      if #vim.diagnostic.get() ~= 0 then
+        vim.diagnostic.setqflist()
+      else
+        vim.notify("No diagnostics found", vim.log.levels.WARN)
+      end
+    end)
 
     set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr })
     set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
